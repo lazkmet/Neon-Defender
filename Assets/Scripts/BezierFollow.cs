@@ -20,7 +20,6 @@ public class BezierFollow : MonoBehaviour
     {
         currentRoute = startRoute;
         tParam = 0f;
-        speedModifier = 0.5f;
         coroutineAllowed = true;
     }
 

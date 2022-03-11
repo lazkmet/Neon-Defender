@@ -14,11 +14,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Path
+  - Enemy
+  - Tower/Attack
+  - Tower/Tower
+  - Obstacle/StateTrigger
   - 
   - 
   - 

@@ -59,6 +59,7 @@ public class PathPrep : MonoBehaviour
         mesh.name = "Path mesh";
         glow.BakeMesh(mesh);
         mesh.Optimize();
+        mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         mesh.RecalculateTangents();
 

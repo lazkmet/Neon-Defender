@@ -17,10 +17,9 @@ public class Enemy : MonoBehaviour
         FindObjectOfType<GameManager>().AddMoney(killReward);
     }
 
-    public void OnCollisionExit(Collision collision)
+    public void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Exit")) {
-            FindObjectOfType<GameManager>().DealDamage(damage);
-        }
+        FindObjectOfType<GameManager>().DealDamage(damage);
+        Destroy(this.gameObject);       
     }
 }
