@@ -47,7 +47,8 @@ public class MouseFollow : MonoBehaviour
         }
     }
     public bool ValidPlacement() {
-        Collider[] hits = Physics.OverlapBox(transform.position, coll.bounds.extents, Quaternion.identity, terrainToCheck);
+        Collider[] hits = Physics.OverlapBox(coll.bounds.center, coll.bounds.extents, Quaternion.identity, terrainToCheck);
+        Debug.Log(hits.Length);
         bool returnVal = hits.Length < 2; //if you collide with anything aside from yourself
         return returnVal;
     }

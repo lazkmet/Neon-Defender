@@ -37,7 +37,11 @@ public class Sniper : Tower
             case upgradeType.RANGE:
                 array = manager.sniperRange;
                 newValue = TryGetUpgrade(array, newIndex);
-                if (newValue != -1) { currentRange = newValue; statLevels[(int)type] = newIndex; }
+                if (newValue != -1) { 
+                    currentRange = newValue; 
+                    statLevels[(int)type] = newIndex;
+                    rangeObject.transform.localScale = new Vector3(currentRange * 2, 0.1f, currentRange * 2);
+                }
                 break;
             case upgradeType.OTHER:
                 array = manager.sniperTriShot;

@@ -8,6 +8,7 @@ public abstract class Tower : MonoBehaviour
     public int[] statLevels { get; private set; }
     public int type { get; protected set; }
     public LayerMask enemyLayer;
+    public GameObject rangeObject;
 
     protected TowerManager manager;
     protected int currentDamage;
@@ -34,6 +35,9 @@ public abstract class Tower : MonoBehaviour
     public abstract void Upgrade(upgradeType type);
     public int Stat(upgradeType type) {
         return statLevels[(int)type];
+    }
+    public void ToggleRange(bool active = false) {
+        rangeObject.SetActive(active);
     }
     public virtual void CheckArea() {
         if (currentCooldown > 0) {return;}

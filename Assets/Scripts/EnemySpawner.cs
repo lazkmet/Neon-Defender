@@ -6,9 +6,9 @@ public class EnemySpawner : MonoBehaviour
 {
     public float spawnCycleTime = 1;
     public TextAsset levelData; //Contains information about each wave and/or environment modifiers
-    //A numeric byte from 0-9 is an index for the spawner to select a prefab 
+    //A numeric character from 0-9 is an index for the spawner to select a prefab 
     //(thus, it can only have up to ten enemy types). A '-' character means an empty spawn cycle. A 
-    //'\n' character represents the end of the wave. An 'x' signifies that the next segment of bytes is a modifier change. This modifier change consists of
+    //'\n' character represents the end of the wave. An 'x' signifies that the next segment of chars is a modifier change. This modifier change consists of
     //[type] [amount] '|'. The type is an alphabetic character from a-z (excluding x), and the amount is a 
     //sequence of numbers that gets converted to a string, then added to the value. This parsing is very fragile and requires an 
     //uncorrupted file.

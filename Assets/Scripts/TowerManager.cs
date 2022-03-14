@@ -88,8 +88,7 @@ public class TowerManager : MonoBehaviour
                 Destroy(selectedTower.gameObject);
                 placing = false;
             }
-            selectedTower = null;
-            UpdateUpgrades();
+            Select(null);
         }
         else if (Input.GetKeyDown(KeyCode.Space)) {
             manager.StartWave();
@@ -122,8 +121,7 @@ public class TowerManager : MonoBehaviour
     }
     public void Reset()
     {
-        selectedTower = null;
-        UpdateUpgrades();
+        Select(null);
         placing = false;
         DestroyExistingTowers();
         currentCosts[(int)towerType.SNIPER] = sniperCost;
@@ -137,13 +135,23 @@ public class TowerManager : MonoBehaviour
         {
             hit.collider.gameObject.TryGetComponent(out newSelected);  
         }
-        selectedTower = newSelected;
+        Select(newSelected);
+    }
+    private void Select(Tower aTower)
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.ToggleRange(false);
+        }
+        selectedTower = aTower;
+        if (selectedTower != null) {
+            selectedTower.ToggleRange(true);
+        }
+        UpdateUpgrades();
     }
     public void StartPlacement(int tower) {
         placing = true;
-        selectedTower = null;
-        UpdateUpgrades();
-        selectedTower = Instantiate(towerPrefabs[tower % towerPrefabs.Length]).GetComponent<Tower>();
+        Select(Instantiate(towerPrefabs[tower % towerPrefabs.Length]).GetComponent<Tower>());
         MouseFollow temp = selectedTower.gameObject.GetComponent<MouseFollow>();
         temp.floor = this.floor;
     }
