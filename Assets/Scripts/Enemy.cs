@@ -7,19 +7,26 @@ public class Enemy : MonoBehaviour
     public int HP = 0;
     public int killReward = 0;
     public int damage = 0;
-    
+    private GameManager manager;
+
+    private void Awake()
+    {
+        manager = FindObjectOfType<GameManager>();
+    }
     public void Hit(int aDamage = 0)
     {
         HP -= aDamage;
         if (HP <= 0) {
+            manager.AddMoney(killReward);
+            manager.Invoke("CheckWaveStop", 0.01f);
             Destroy(this.gameObject);
-        }
-        FindObjectOfType<GameManager>().AddMoney(killReward);
+        }       
     }
 
     public void OnTriggerExit(Collider other)
     {
-        FindObjectOfType<GameManager>().DealDamage(damage);
-        Destroy(this.gameObject);       
+        manager.DealDamage(damage);
+        manager.Invoke("CheckWaveStop", 0.01f);
+        Destroy(this.gameObject);
     }
 }

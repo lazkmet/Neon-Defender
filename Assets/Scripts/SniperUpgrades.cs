@@ -9,7 +9,6 @@ public class SniperUpgrades : UpgradeList
     public Button speedButton;
     public Button rangeButton;
     public Button triShotButton;
-    public Color gray;
     private TowerManager towerInfo;
     protected override void Awake()
     {
@@ -26,7 +25,7 @@ public class SniperUpgrades : UpgradeList
             if (index == towerInfo.sniperDamage.Length - 1)
             {
                 damageButton.enabled = false;
-                damageButton.GetComponent<Image>().color = gray;
+                damageButton.GetComponent<Image>().color = towerInfo.manager.gray;
                 costDisplay.text = "MAX";
             }
             else
@@ -43,7 +42,7 @@ public class SniperUpgrades : UpgradeList
             if (index == towerInfo.sniperCooldown.Length - 1)
             {
                 speedButton.enabled = false;
-                speedButton.GetComponent<Image>().color = gray;
+                speedButton.GetComponent<Image>().color = towerInfo.manager.gray;
                 costDisplay.text = "MAX";
             }
             else
@@ -60,7 +59,7 @@ public class SniperUpgrades : UpgradeList
             if (index == towerInfo.sniperRange.Length - 1)
             {
                 rangeButton.enabled = false;
-                rangeButton.GetComponent<Image>().color = gray;
+                rangeButton.GetComponent<Image>().color = towerInfo.manager.gray;
                 costDisplay.text = "MAX";
             }
             else
@@ -80,7 +79,7 @@ public class SniperUpgrades : UpgradeList
             }
             else {
                 triShotButton.enabled = false;
-                triShotButton.GetComponent<Image>().color = gray;
+                triShotButton.GetComponent<Image>().color = towerInfo.manager.gray;
                 costDisplay.text = "MAX";
             }
         }
@@ -88,31 +87,5 @@ public class SniperUpgrades : UpgradeList
             print("Error in Button Hierarchy");
         }
         base.Display(aTower);
-    }
-
-    private string Roman(int numeral) {
-        string returnValue = "";
-        switch (numeral + 1) {
-            case 1:
-                returnValue = "I";
-                break;
-            case 2:
-                returnValue = "II";
-                break;
-            case 3:
-                returnValue = "III";
-                break;
-            case 4:
-                returnValue = "IV";
-                break;
-            case 5:
-                returnValue = "V";
-                break;
-            default:
-                returnValue = "ERROR";
-                break;
-        }
-       
-        return returnValue;
     }
 }

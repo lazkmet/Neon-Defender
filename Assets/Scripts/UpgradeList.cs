@@ -9,7 +9,6 @@ public abstract class UpgradeList : MonoBehaviour
     protected virtual void Awake()
     {
         menuItems = this.GetComponent<CanvasGroup>();
-        Hide();
     }
     public virtual void Display(Tower aTower)
     { //fixed with https://answers.unity.com/questions/971009/make-ui-elements-invisible.html
@@ -19,5 +18,32 @@ public abstract class UpgradeList : MonoBehaviour
     public void Hide() {
         menuItems.alpha = 0f;
         menuItems.blocksRaycasts = false;
+    }
+    protected string Roman(int numeral)
+    {
+        string returnValue = "";
+        switch (numeral + 1)
+        {
+            case 1:
+                returnValue = "I";
+                break;
+            case 2:
+                returnValue = "II";
+                break;
+            case 3:
+                returnValue = "III";
+                break;
+            case 4:
+                returnValue = "IV";
+                break;
+            case 5:
+                returnValue = "V";
+                break;
+            default:
+                returnValue = "ERROR";
+                break;
+        }
+
+        return returnValue;
     }
 }

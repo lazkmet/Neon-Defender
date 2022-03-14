@@ -8,9 +8,9 @@ public class BezierFollow : MonoBehaviour
 
     public BezierPath startRoute;
 
-    protected BezierPath currentRoute = null;
+    public BezierPath currentRoute { get; private set; } = null;
 
-    protected float tParam;
+    public float tParam { get; private set; }
 
     protected Vector3 objectPosition;
 

@@ -12,7 +12,8 @@ public class EnemySpawner : MonoBehaviour
     //[type] [amount] '|'. The type is an alphabetic character from a-z (excluding x), and the amount is a 
     //sequence of numbers that gets converted to a string, then added to the value. This parsing is very fragile and requires an 
     //uncorrupted file.
-    
+    public bool waveActive;
+
     [Header("Enemies")]
     public GameObject[] enemyPrefabs;
     public BezierPath startRoute;
@@ -31,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         if (currentTime >= spawnCycleTime)
         {
             //ParseByte();
-            SpawnEnemy(1);
+            SpawnEnemy(0);
             currentTime = 0;
         }
         else {

@@ -11,7 +11,9 @@ public class TowerManager : MonoBehaviour
 
     public Transform floor;
     public GameObject[] towerPrefabs;
+    public LayerMask towerLayer;
     public UpgradeList[] lists;
+    public RectTransform validScreenSpace;
     public int perTowerGrowth = 0;
 
     [System.Serializable]
@@ -37,19 +39,25 @@ public class TowerManager : MonoBehaviour
 
     private int[] currentCosts;
     private Tower selectedTower;
+    private GameObject selectedRange = null;
     [HideInInspector]
     public GameManager manager;
+    [HideInInspector]
+    public Camera cam;
     private bool placing;
+    private List<Tower> activeTowers = new List<Tower>();
+    private int currentToCheck = 0;
     private void Awake()
     {
         manager = FindObjectOfType<GameManager>();
+        cam = FindObjectOfType<Camera>();
         currentCosts = new int[numTypes];
     }
     private void Update()
     {
         if (Time.timeScale == 0) { return; }
         if (Input.GetMouseButtonDown(0)) {
-            if (true) { //mouse within valid screen area?
+            if (ValidArea()) { //mouse within valid screen area?
                 if (placing)
                 { //lock it in and make selected
                     if (manager.currentMoney >= currentCosts[selectedTower.type] && selectedTower.GetComponent<MouseFollow>().ValidPlacement())
@@ -58,34 +66,49 @@ public class TowerManager : MonoBehaviour
                         temp.RestoreMaterials();
                         Destroy(temp);
                         selectedTower.enabled = true;
+                        activeTowers.Add(selectedTower);
                         BuyTower(selectedTower.type);
                         placing = false;
                         UpdateUpgrades();
                     }
-                    else { 
+                    else {
                         //error noise
                     }
                 }
                 else
                 { //raycast for tower
-                  //if there is a selected tower, becomes active and displays proper upgrade list
+                    TryFindTower();
                     UpdateUpgrades();
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(1)){
+        else if (Input.GetMouseButtonDown(1)) {
             if (placing)
             {
-                Destroy(selectedTower);
+                Destroy(selectedTower.gameObject);
                 placing = false;
             }
             selectedTower = null;
             UpdateUpgrades();
         }
+        else if (Input.GetKeyDown(KeyCode.Space)) {
+            manager.StartWave();
+        }
+
+        if (activeTowers.Count > 0) {
+            if (currentToCheck < activeTowers.Count) {
+                activeTowers[currentToCheck].CheckArea();
+            }
+            else {
+                currentToCheck = 0;
+                activeTowers[currentToCheck].CheckArea();
+            }
+            currentToCheck++;
+        }
     }
-    public void TryUpgradeSelected(Tower.upgradeType type) {
+    public void TryUpgradeSelected(int type) {
         if (selectedTower != null) {
-            selectedTower.Upgrade(type);
+            selectedTower.Upgrade((Tower.upgradeType)type);
             UpdateUpgrades();
         }
     }
@@ -93,8 +116,9 @@ public class TowerManager : MonoBehaviour
     {
         foreach (Tower t in FindObjectsOfType<Tower>())
         {
-            Destroy(t.gameObject);
+            Destroy(t.gameObject);           
         }
+        activeTowers.Clear();
     }
     public void Reset()
     {
@@ -106,16 +130,32 @@ public class TowerManager : MonoBehaviour
         currentCosts[(int)towerType.BOMBER] = bomberCost;
         UpdateButtons();
     }
+    private void TryFindTower() {
+        RaycastHit hit;
+        Tower newSelected = null;
+        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, towerLayer))
+        {
+            hit.collider.gameObject.TryGetComponent(out newSelected);  
+        }
+        selectedTower = newSelected;
+    }
     public void StartPlacement(int tower) {
         placing = true;
+        selectedTower = null;
+        UpdateUpgrades();
         selectedTower = Instantiate(towerPrefabs[tower % towerPrefabs.Length]).GetComponent<Tower>();
-        selectedTower.gameObject.GetComponent<MouseFollow>().floor = this.floor;
+        MouseFollow temp = selectedTower.gameObject.GetComponent<MouseFollow>();
+        temp.floor = this.floor;
     }
     private void BuyTower(int tower) {
         int cost = Mathf.RoundToInt(currentCosts[tower % currentCosts.Length] * manager.costMultiplier);
         manager.AddMoney(-cost);
         currentCosts[tower % currentCosts.Length] += perTowerGrowth;
         UpdateButtons();
+    }
+
+    public bool ValidArea() {
+        return RectTransformUtility.RectangleContainsScreenPoint(validScreenSpace, Input.mousePosition);
     }
     public void UpdateButtons() {
         try
@@ -149,5 +189,9 @@ public class TowerManager : MonoBehaviour
                 print("Unexpected type: " + t.Name);
             }
         }
+    }
+
+    public void TryShowArea() { 
+    
     }
 }

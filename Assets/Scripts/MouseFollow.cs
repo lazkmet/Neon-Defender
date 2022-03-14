@@ -10,6 +10,9 @@ public class MouseFollow : MonoBehaviour
     public Camera cam;
     public Material valid;
     public Material invalid;
+
+    private Vector3 minPoint = new Vector3 (-26.5f, 0, -20);
+    private Vector3 maxPoint = new Vector3(26.5f, 0, 20);
     private Collider coll;
     private bool everyOther;
     private Material[] originalMats;
@@ -24,10 +27,16 @@ public class MouseFollow : MonoBehaviour
         for (int i = 0; i < towerMats.Length; i++) {
             originalMats[i] = towerMats[i].material;
         }
+        minPoint.x += coll.bounds.extents.x;
+        maxPoint.x -= coll.bounds.extents.x;
+        minPoint.z += coll.bounds.extents.z;
+        maxPoint.z -= coll.bounds.extents.z;
     }
     private void Update()
     {
         Vector3 newPos = cam.ScreenToWorldPoint(Input.mousePosition);
+        newPos.x = Mathf.Clamp(newPos.x, minPoint.x, maxPoint.x);
+        newPos.z = Mathf.Clamp(newPos.z, minPoint.z, maxPoint.z);
         newPos.y = floor.position.y;
         transform.position = newPos;
         everyOther = !everyOther;

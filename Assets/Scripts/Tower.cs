@@ -6,13 +6,16 @@ public abstract class Tower : MonoBehaviour
 {
     public enum upgradeType {DAMAGE, SPEED, RANGE, OTHER};
     public int[] statLevels { get; private set; }
-    public int type { get; private set; }
+    public int type { get; protected set; }
+    public LayerMask enemyLayer;
 
     protected TowerManager manager;
     protected int currentDamage;
-    protected float currentCooldown;
+    protected float currentMaxCooldown;
+    protected float currentCooldown = 0;
     protected float currentRange;
-    private void Awake()
+    protected AudioManager audioManager;
+    protected virtual void Awake()
     {
         statLevels = new int[] {-1, -1, -1, -1};
         manager = FindObjectOfType<TowerManager>();
@@ -22,8 +25,22 @@ public abstract class Tower : MonoBehaviour
         Upgrade(upgradeType.RANGE);
         Upgrade(upgradeType.OTHER);
     }
+    private void Update()
+    {
+        if (currentCooldown > 0) {
+            currentCooldown -= Time.deltaTime;
+        }
+    }
     public abstract void Upgrade(upgradeType type);
     public int Stat(upgradeType type) {
         return statLevels[(int)type];
     }
+    public virtual void CheckArea() {
+        if (currentCooldown > 0) {return;}
+        Collider[] hits = Physics.OverlapSphere(transform.position, currentRange, enemyLayer);
+        if (hits.Length > 0) {
+            Attack();
+        }
+    }
+    protected abstract void Attack();
 }
