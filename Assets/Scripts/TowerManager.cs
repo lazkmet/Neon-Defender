@@ -39,7 +39,6 @@ public class TowerManager : MonoBehaviour
 
     private int[] currentCosts;
     private Tower selectedTower;
-    private GameObject selectedRange = null;
     [HideInInspector]
     public GameManager manager;
     [HideInInspector]
@@ -177,13 +176,12 @@ public class TowerManager : MonoBehaviour
         catch (System.NullReferenceException) { }
     }
     public void UpdateUpgrades() {
-        if (selectedTower == null)
+        foreach (UpgradeList ul in lists)
         {
-            foreach (UpgradeList ul in lists) {
-                ul.Hide();
-            }
+            ul.Hide();
         }
-        else {
+        if (selectedTower != null)
+        {
             System.Type t = selectedTower.GetType(); //should be either Sniper or Bomber, which both are Towers
             if (t == typeof(Sniper))
             {
@@ -193,13 +191,10 @@ public class TowerManager : MonoBehaviour
             {
                 lists[(int)towerType.BOMBER].Display(selectedTower);
             }
-            else {
+            else
+            {
                 print("Unexpected type: " + t.Name);
             }
         }
-    }
-
-    public void TryShowArea() { 
-    
     }
 }

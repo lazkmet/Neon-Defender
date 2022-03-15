@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06aebd171368e13488c577c3295ca7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
-  killReward: 100
+  HP: 5000
+  killReward: 400
   damage: 5
 --- !u!114 &4996370595007801123
 MonoBehaviour:

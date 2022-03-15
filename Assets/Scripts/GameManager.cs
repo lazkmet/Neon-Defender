@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(TowerManager))]
+[RequireComponent(typeof(TowerManager))] [RequireComponent(typeof(MenuManager))]
 public class GameManager : MonoBehaviour
 {
     public int difficultyValue = 0;
     public int numWaves = 0;
-    //[HideInInspector]
-    public int currentWave = 0;
+    [HideInInspector]
+    public int currentWave;
 
     [Header("Game Parameters")]
     [SerializeField]
@@ -49,16 +49,30 @@ public class GameManager : MonoBehaviour
     public Button lifeButton;
     public Color gray;
 
+    [HideInInspector]
+    public AudioManager audioManager;
     private int currentLife;
     private bool waveOngoing;
     private bool gameOver;
     private TowerManager towers;
+    private MenuManager menus;
     private EnemySpawner[] spawners = { };
     
     public void Awake()
     {
+        menus = this.GetComponent<MenuManager>();
         towers = this.GetComponent<TowerManager>();
         spawners = FindObjectsOfType<EnemySpawner>();
+        audioManager = FindObjectOfType<AudioManager>();
+        DifficultyToken difficulty = FindObjectOfType<DifficultyToken>();
+        difficultyValue = (difficulty == null) ? 0 : difficulty.Get();
+        difficulty = null;
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            menus.TogglePause();
+        }
     }
     public void Start()
     {
@@ -123,13 +137,15 @@ public class GameManager : MonoBehaviour
     public void GameOver() {
         gameOver = true;
         Time.timeScale = 0;
+        menus.SetActiveScreen(1);
     }
     private void GameWon() {
         Time.timeScale = 0;
-        print("Congratulations! Win!");
+        menus.SetActiveScreen(2);
     }
     public void Reset()
     {
+        menus.Reset(); 
         currentMoney = StartMoney();
         SetLife(StartLife());
         ResetModifiers();
@@ -141,6 +157,7 @@ public class GameManager : MonoBehaviour
         }
         towers.Reset();
         waveOngoing = false;
+        currentWave = 0;
         gameOver = false;
         UpdateDisplay();
         Time.timeScale = 1;
@@ -157,7 +174,12 @@ public class GameManager : MonoBehaviour
         }
 
         foreach (GameObject obj in reds) {
-            Renderer r = obj.GetComponent<Renderer>();
+            makeRed(obj);
+        }
+    }
+    public void makeRed(GameObject obj) {
+        Renderer r;
+        if (obj.TryGetComponent(out r)) {
             r.material.Lerp(maxRed, minRed, Mathf.Clamp01((float)currentLife / StartLife()));
         }
     }

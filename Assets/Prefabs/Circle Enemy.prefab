@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 30
-  killReward: 5
+  killReward: 10
   damage: 1
 --- !u!114 &488808781
 MonoBehaviour:

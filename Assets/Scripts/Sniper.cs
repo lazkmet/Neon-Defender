@@ -88,6 +88,7 @@ public class Sniper : Tower
         if (hits.Length > 0) {
             Retarget(hits);
             Attack();
+            currentCooldown = currentMaxCooldown;
         }
     }
     public void NewAlg() {
@@ -138,7 +139,7 @@ public class Sniper : Tower
         foreach (float turnValue in shotAngles)
         {
             //spawn bullet particle
-            //audioManager.Play("Sniper Shot");
+            //manager.manager.audioManager.Play("Sniper Shot");
             hits = Physics.RaycastAll(shotOrigin.position, Quaternion.Euler(0, turnValue, 0) * shotOrigin.forward, 100, enemyLayer);
             foreach (RaycastHit h in hits) {
                 if (h.collider.gameObject.TryGetComponent(out currentEnemyHit)) {
@@ -146,7 +147,6 @@ public class Sniper : Tower
                 }
             }
         }
-        currentCooldown = currentMaxCooldown;
     }
 
     private void OnDrawGizmos()

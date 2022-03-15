@@ -15,7 +15,6 @@ public abstract class Tower : MonoBehaviour
     protected float currentMaxCooldown;
     protected float currentCooldown = 0;
     protected float currentRange;
-    protected AudioManager audioManager;
     protected virtual void Awake()
     {
         statLevels = new int[] {-1, -1, -1, -1};
@@ -44,6 +43,7 @@ public abstract class Tower : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, currentRange, enemyLayer);
         if (hits.Length > 0) {
             Attack();
+            currentCooldown = currentMaxCooldown;
         }
     }
     protected abstract void Attack();

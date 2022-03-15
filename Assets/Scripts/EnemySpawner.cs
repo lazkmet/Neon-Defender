@@ -45,6 +45,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy(int index) {
         Enemy newEnemy = Instantiate(enemyPrefabs[index % enemyPrefabs.Length], this.transform.position, Quaternion.identity).GetComponent<Enemy>();
         newEnemy.HP = Mathf.RoundToInt(newEnemy.HP * manager.healthMultiplier);
+        manager.makeRed(newEnemy.gameObject);
         BezierFollow newMovement = newEnemy.gameObject.GetComponent<BezierFollow>();
         newMovement.speedModifier *= manager.speedMultiplier;
         newMovement.startRoute = this.startRoute;

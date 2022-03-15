@@ -6,8 +6,14 @@ using UnityEngine.UI;
 public abstract class UpgradeList : MonoBehaviour
 {
     private CanvasGroup menuItems;
-    protected virtual void Awake()
+    public Button damageButton;
+    public Button speedButton;
+    public Button rangeButton;
+    protected TowerManager towerInfo;
+    
+    private void Awake()
     {
+        towerInfo = FindObjectOfType<TowerManager>();
         menuItems = this.GetComponent<CanvasGroup>();
     }
     public virtual void Display(Tower aTower)
