@@ -111,6 +111,13 @@ public class TowerManager : MonoBehaviour
             UpdateUpgrades();
         }
     }
+    public void TrySwapMode() {
+        if (selectedTower != null && selectedTower is Sniper) {
+            Sniper temp = (Sniper)selectedTower;
+            temp.NewAlg();
+        }
+        UpdateUpgrades();
+    }
     private void DestroyExistingTowers()
     {
         foreach (Tower t in FindObjectsOfType<Tower>())

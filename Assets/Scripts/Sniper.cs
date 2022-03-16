@@ -10,7 +10,7 @@ public class Sniper : Tower
     public GameObject triShot;
     public float[] triShotAngles = {0, 0};
     public string boostedAttackSFXName = "";
-    private bool targetLast = false;
+    public bool targetLast = true;
     private float[] shotAngles = {0};
     private float damageMultiplier = 1;
     private Transform currentTarget = null;
@@ -101,13 +101,37 @@ public class Sniper : Tower
         targetLast = !targetLast;
     }
     private void Retarget(Collider[] hits) {
-        if (targetLast) {
+        if (!targetLast) {
             RT_MinDistance(hits);
         }
         else { RT_MaxDistance(hits); }
     }
-    private void RT_MinDistance(Collider[] hits) {
-        throw new System.NotImplementedException();
+    private void RT_MinDistance(Collider[] hits)
+    {
+        int minIndex = 999;
+        Transform currentMin = null;
+        int currentPathIndex;
+        BezierFollow currentEnemy;
+        foreach (Collider c in hits)
+        {
+            if (c.gameObject.TryGetComponent(out currentEnemy))
+            {
+                currentPathIndex = currentEnemy.currentRoute.transform.GetSiblingIndex();
+                if (currentPathIndex < minIndex)
+                { //Whichever route is the farthest along will have the highest index, because the path hierarchy is top to bottom
+                    currentMin = c.transform;
+                    minIndex = currentPathIndex;
+                }
+                else if (currentPathIndex == minIndex)
+                { //If both objects are on the same route, the one with the highest parameter value is the farthest along
+                    if (currentEnemy.tParam < currentMin.GetComponent<BezierFollow>().tParam)
+                    {
+                        currentMin = c.transform;
+                    }
+                }
+            }
+        }
+        currentTarget = currentMin;
     }
     private void RT_MaxDistance(Collider[] hits) { 
         /*Determines the enemy that is closest to the exit.

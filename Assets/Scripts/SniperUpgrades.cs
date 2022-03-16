@@ -6,6 +6,7 @@ using TMPro;
 public class SniperUpgrades : UpgradeList
 {
     public Button triShotButton;
+    public Button targetModeButton;
     
     public override void Display(Tower aTower) {
         try
@@ -73,6 +74,11 @@ public class SniperUpgrades : UpgradeList
                 triShotButton.enabled = false;
                 triShotButton.GetComponent<Image>().color = towerInfo.manager.gray;
                 costDisplay.text = "MAX";
+            }
+            if (aTower is Sniper) {
+                Sniper temp = (Sniper)aTower;
+                costDisplay = targetModeButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                costDisplay.text = temp.targetLast ? "Targeting Last" : "Targeting First";
             }
         }
         catch (System.Exception) {

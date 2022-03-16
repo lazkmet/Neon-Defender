@@ -62,7 +62,7 @@ public class LevelSelect : MonoBehaviour
         StartCoroutine("ChangePictures", isLeft);
     }
     private IEnumerator ChangePictures(bool isLeft = true) {
-        next.rectTransform.anchoredPosition = isLeft ? right : left;
+        next.rectTransform.anchoredPosition = isLeft ? left : right;
         StartCoroutine(MovePic(blank, isLeft));
         yield return new WaitForSeconds(timeForMove / 5);
         yield return StartCoroutine(MovePic(next, isLeft));
@@ -78,7 +78,7 @@ public class LevelSelect : MonoBehaviour
     }
     private IEnumerator MovePic(Image image, bool isLeft = true) {
         Vector3 origin = image.rectTransform.anchoredPosition;
-        Vector3 newPosition = origin + (isLeft ? -1 : 1) * (right - center);
+        Vector3 newPosition = origin + (isLeft ? 1 : -1) * (right - center);
         for (float currentTime = 0; currentTime < timeForMove; currentTime += Time.deltaTime) {
             image.rectTransform.anchoredPosition = Vector3.Lerp(origin, newPosition, currentTime / timeForMove);
             yield return null;
