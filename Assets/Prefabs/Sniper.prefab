@@ -410,12 +410,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rangeObject: {fileID: 1331360670458219454}
+  attackSFXName: Shot1
   rotator: {fileID: 8567145235881681538}
   shotOrigin: {fileID: 8420998871401154032}
+  bulletPrefab: {fileID: 3341676838730179639, guid: 6b6c510874285404c8926a62ecdfe7f7, type: 3}
   triShot: {fileID: 7576024049319474452}
   triShotAngles:
   - 5
   - -5
+  boostedAttackSFXName: Shot2
 --- !u!114 &5145546533468228831
 MonoBehaviour:
   m_ObjectHideFlags: 0

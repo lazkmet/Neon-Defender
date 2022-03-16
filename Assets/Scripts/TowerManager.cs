@@ -67,11 +67,12 @@ public class TowerManager : MonoBehaviour
                         selectedTower.enabled = true;
                         activeTowers.Add(selectedTower);
                         BuyTower(selectedTower.type);
+                        manager.audioManager.Play("Build");
                         placing = false;
                         UpdateUpgrades();
                     }
                     else {
-                        //error noise
+                        manager.audioManager.Play("Error");
                     }
                 }
                 else

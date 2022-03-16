@@ -6,8 +6,10 @@ public class Sniper : Tower
 {
     public Transform rotator;
     public Transform shotOrigin;
+    public GameObject bulletPrefab;
     public GameObject triShot;
     public float[] triShotAngles = {0, 0};
+    public string boostedAttackSFXName = "";
     private bool targetLast = false;
     private float[] shotAngles = {0};
     private float damageMultiplier = 1;
@@ -62,10 +64,14 @@ public class Sniper : Tower
             {
                 manager.manager.AddMoney(-value.cost);
                 returnValue = value.value;
+                if (newIndex > 0)
+                {
+                    manager.manager.audioManager.Play("Upgrade");
+                }
             }
             else
             {
-                //play fail noise
+                manager.manager.audioManager.Play("Error");
             }
         }
         return returnValue;
@@ -135,12 +141,14 @@ public class Sniper : Tower
         RaycastHit[] hits;
         Enemy currentEnemyHit;
         int currentCalculatedDamage = Mathf.RoundToInt(currentDamage * damageMultiplier);
-        
+        float shotVelocity = 150;
         foreach (float turnValue in shotAngles)
         {
-            //spawn bullet particle
-            //manager.manager.audioManager.Play("Sniper Shot");
-            hits = Physics.RaycastAll(shotOrigin.position, Quaternion.Euler(0, turnValue, 0) * shotOrigin.forward, 100, enemyLayer);
+            GameObject newBullet = Instantiate(bulletPrefab, shotOrigin.position, shotOrigin.transform.rotation);
+            newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward*shotVelocity, ForceMode.VelocityChange);
+            Destroy(newBullet, currentRange / shotVelocity);
+            manager.manager.audioManager.Play(Stat(upgradeType.DAMAGE) > 3 ? boostedAttackSFXName:attackSFXName);
+            hits = Physics.RaycastAll(shotOrigin.position, Quaternion.Euler(0, turnValue, 0) * shotOrigin.forward, currentRange, enemyLayer);
             foreach (RaycastHit h in hits) {
                 if (h.collider.gameObject.TryGetComponent(out currentEnemyHit)) {
                     currentEnemyHit.Hit(currentCalculatedDamage);

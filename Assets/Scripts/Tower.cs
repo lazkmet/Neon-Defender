@@ -9,6 +9,7 @@ public abstract class Tower : MonoBehaviour
     public int type { get; protected set; }
     public LayerMask enemyLayer;
     public GameObject rangeObject;
+    public string attackSFXName = "";
 
     protected TowerManager manager;
     protected int currentDamage;

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private float[] healthBoost = { 1, 1, 1 };
     [SerializeField]
     private float[] itemCostMultiplier = { 1, 1, 1 };
+    public int healthCost;
+    public int healthCostGrowth;
 
     [Header("Brightness")]
     public Material maxBlue;
@@ -40,18 +42,18 @@ public class GameManager : MonoBehaviour
     public float healthMultiplier;
     [HideInInspector]
     public float costMultiplier;
-    [HideInInspector]
     public int currentMoney { get; private set; }
 
     [Header("Menu Items")]
     public TextMeshProUGUI moneyDisplay;
     public Button waveButton;
-    public Button lifeButton;
+    public TextMeshProUGUI lifeButtonText;
     public Color gray;
 
     [HideInInspector]
     public AudioManager audioManager;
     private int currentLife;
+    private int currentLifeCost;
     private bool waveOngoing;
     private bool gameOver;
     private TowerManager towers;
@@ -82,11 +84,23 @@ public class GameManager : MonoBehaviour
         currentMoney += aMoneyToAdd;
         UpdateDisplay();
     }
+    public void BuyLife(int aAmount = 1) {
+        if (currentMoney >= currentLifeCost)
+        {
+            currentMoney -= currentLifeCost;
+            currentLifeCost += Mathf.RoundToInt(healthCostGrowth * costMultiplier);
+            DealDamage(-aAmount);
+            UpdateDisplay();
+        }
+        else {
+            audioManager.Play("Error");
+        }
+    }
     public void StartWave() {
         if (!waveOngoing && currentWave < numWaves) {
             waveOngoing = true;
             foreach (EnemySpawner e in spawners) {
-                e.NextWave();
+                e.StartWave(currentWave);
             }
             currentWave++;
             waveButton.gameObject.GetComponent<Image>().color = gray;
@@ -129,7 +143,12 @@ public class GameManager : MonoBehaviour
     }
     public void DealDamage(int aDamageTaken) {
         SetLife(currentLife - aDamageTaken);
-
+        if (aDamageTaken >= 0) {
+            audioManager.Play("Damage");
+        }
+        else {
+            audioManager.Play("Heal");
+        }
         if (currentLife <= 0) {
             GameOver();
         }
@@ -152,9 +171,13 @@ public class GameManager : MonoBehaviour
         foreach (EnemySpawner e in spawners) {
             e.Reset();
         }
+        foreach (Enemy e in FindObjectsOfType<Enemy>()) {
+            Destroy(e.gameObject);
+        }
         foreach (UpgradeList ul in FindObjectsOfType<UpgradeList>()) {
             ul.Hide();
         }
+        currentLifeCost = Mathf.RoundToInt(healthCost * costMultiplier);
         towers.Reset();
         waveOngoing = false;
         currentWave = 0;
@@ -186,8 +209,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateDisplay() {
         moneyDisplay.text = currentMoney.ToString();
-
-        //Update life button
+        lifeButtonText.text = currentLifeCost.ToString();
 
         if (!waveOngoing) {
             waveButton.enabled = true;
@@ -206,7 +228,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    public void Click() {
+        audioManager.Play("Click");
+    }
     //data modification
     private int StartMoney() {
         return startingMoney[difficultyValue % 3];

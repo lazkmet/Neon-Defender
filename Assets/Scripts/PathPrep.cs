@@ -6,6 +6,7 @@ public class PathPrep : MonoBehaviour
 {
     public LineRenderer path;
     public LineRenderer glow;
+    public Transform floor;
     private BezierPath[] routes = { };
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class PathPrep : MonoBehaviour
             //set first line position closer to the next, to fix sharp turns
             float t = 0.05f;
             currentPosition = Mathf.Pow(1 - t, 3) * r.controlPoints[0].position + 3 * Mathf.Pow(1 - t, 2) * t * r.controlPoints[1].position + 3 * (1 - t) * Mathf.Pow(t, 2) * r.controlPoints[2].position + Mathf.Pow(t, 3) * r.controlPoints[3].position;
+            currentPosition.y = floor.transform.position.y;
             path.SetPosition(currentIndex, currentPosition);
             currentPosition.y -= 0.1f;
             glow.SetPosition(currentIndex, currentPosition);
@@ -28,7 +30,7 @@ public class PathPrep : MonoBehaviour
             for (t = 0.1f; t <= 1; t += 0.1f)
             {
                 currentPosition = Mathf.Pow(1 - t, 3) * r.controlPoints[0].position + 3 * Mathf.Pow(1 - t, 2) * t * r.controlPoints[1].position + 3 * (1 - t) * Mathf.Pow(t, 2) * r.controlPoints[2].position + Mathf.Pow(t, 3) * r.controlPoints[3].position;
-
+                currentPosition.y = floor.transform.position.y;
                 path.SetPosition(currentIndex, currentPosition);
                 currentPosition.y -= 0.1f;
                 glow.SetPosition(currentIndex, currentPosition);
@@ -40,6 +42,7 @@ public class PathPrep : MonoBehaviour
         if (routes.Length > 0)
         { //Set final position
             currentPosition = routes[routes.Length-1].controlPoints[3].position;
+            currentPosition.y = floor.transform.position.y;
             path.SetPosition(currentIndex, currentPosition);
             currentPosition.y -= 0.1f;
             glow.SetPosition(currentIndex, currentPosition);

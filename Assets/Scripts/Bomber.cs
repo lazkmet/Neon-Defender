@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bomber : Tower
 {
     public Transform shotOrigin;
+    public GameObject attackPrefab1;
+    public GameObject attackPrefab2;
     protected override void Awake()
     {
         type = 1;
@@ -54,17 +56,21 @@ public class Bomber : Tower
             {
                 manager.manager.AddMoney(-value.cost);
                 returnValue = value.value;
+                if (newIndex > 0) {
+                    manager.manager.audioManager.Play("Upgrade");
+                }
             }
             else
             {
-                //play fail noise
+                manager.manager.audioManager.Play("Error");
             }
         }
         return returnValue;
     }
     protected override void Attack()
     {
-        //spawn particle effect at ORIGIN, play noise
+        Instantiate(Stat(upgradeType.RANGE) > 0 ? attackPrefab2 : attackPrefab1, shotOrigin.position, Quaternion.identity);
+        manager.manager.audioManager.Play(attackSFXName);
         Invoke(nameof(Damage), 0.2f);
     }
     private void Damage() {

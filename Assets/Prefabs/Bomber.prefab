@@ -91,7 +91,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rangeObject: {fileID: 7124512572255790899}
+  attackSFXName: Boom
   shotOrigin: {fileID: 8561843900958558525}
+  attackPrefab1: {fileID: 2111613669422775290, guid: 4f0ce3a173e5c634a9dc3a9297ec274b, type: 3}
+  attackPrefab2: {fileID: 8352560500087508045, guid: 30902d0380ee5c6438c92831372b4981, type: 3}
 --- !u!114 &5126367427676483508
 MonoBehaviour:
   m_ObjectHideFlags: 0
