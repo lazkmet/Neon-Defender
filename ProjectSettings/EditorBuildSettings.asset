@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EasyTrack.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/MediumTrack.unity
+    guid: e3537f12a4de5334eb87417a9861f4b0
   m_configObjects: {}

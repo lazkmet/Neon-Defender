@@ -157,13 +157,15 @@ public class TowerManager : MonoBehaviour
         UpdateUpgrades();
     }
     public void StartPlacement(int tower) {
-        placing = true;
-        Select(Instantiate(towerPrefabs[tower % towerPrefabs.Length]).GetComponent<Tower>());
+        if (placing)
+        {Destroy(selectedTower.gameObject);}
+            placing = true;
+        Select(Instantiate(towerPrefabs[tower % towerPrefabs.Length], new Vector3(0, -10, 0), Quaternion.identity).GetComponent<Tower>());
         MouseFollow temp = selectedTower.gameObject.GetComponent<MouseFollow>();
         temp.floor = this.floor;
     }
     private void BuyTower(int tower) {
-        int cost = Mathf.RoundToInt(currentCosts[tower % currentCosts.Length] * manager.costMultiplier);
+        int cost = Mathf.RoundToInt(currentCosts[tower % currentCosts.Length]);
         manager.AddMoney(-cost);
         currentCosts[tower % currentCosts.Length] += perTowerGrowth;
         UpdateButtons();

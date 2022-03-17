@@ -531,6 +531,18 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &112170899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4319,6 +4331,18 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &559461898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4763,6 +4787,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &630921970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5184,6 +5220,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &761759196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5523,6 +5571,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1267546826}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7023,6 +7083,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1095829672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7874,7 +7946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10748e4579def4445b570755d2b220b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficultyValue: 1
+  difficultyValue: 2
   numWaves: 15
   currentWave: 0
   startingMoney: f40100005e010000fa000000
@@ -7890,7 +7962,7 @@ MonoBehaviour:
   healthBoost:
   - 0.8
   - 1
-  - 1.5
+  - 1.1
   itemCostMultiplier:
   - 1
   - 1
@@ -7949,10 +8021,8 @@ MonoBehaviour:
   validScreenSpace: {fileID: 172781645}
   perTowerGrowth: 50
   sniperDamage:
-  - value: 15
+  - value: 30
     cost: 0
-  - value: 35
-    cost: 125
   - value: 50
     cost: 170
   - value: 90
@@ -7960,7 +8030,7 @@ MonoBehaviour:
   - value: 120
     cost: 400
   sniperCooldown:
-  - value: 1.3
+  - value: 1.4
     cost: 0
   - value: 1
     cost: 150
@@ -7970,9 +8040,9 @@ MonoBehaviour:
   - value: 7
     cost: 0
   - value: 12
-    cost: 120
+    cost: 90
   - value: 18
-    cost: 200
+    cost: 180
   sniperTriShot:
   - value: 0
     cost: 0
@@ -7981,17 +8051,17 @@ MonoBehaviour:
   sniperButton: {fileID: 2126561459}
   sniperCost: 100
   bomberDamage:
-  - value: 20
+  - value: 35
     cost: 0
   - value: 50
-    cost: 200
+    cost: 175
   - value: 125
-    cost: 450
+    cost: 310
   bomberCooldown:
   - value: 2.3
     cost: 0
   - value: 1.9
-    cost: 160
+    cost: 150
   - value: 1.4
     cost: 290
   - value: 1
@@ -10123,6 +10193,132 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e4cd2ee549d3042b93a085d1d7fd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1524669183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524669185}
+  - component: {fileID: 1524669184}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1524669184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524669183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7270147c87d9c42be9f3db8c8a8886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: Click
+    clip: {fileID: 8300000, guid: 8d2f2b2d9380dd4429bb810c917652d3, type: 3}
+    volume: 0.636
+    volumeVariance: 0.15
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Upgrade
+    clip: {fileID: 8300000, guid: 6374e12f688192740ae80188ee1cfdfb, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.05
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Build
+    clip: {fileID: 8300000, guid: 9b1ab3d168815094592a1ce0b772afed, type: 3}
+    volume: 1
+    volumeVariance: 0.069
+    pitch: 1
+    pitchVariance: 0.385
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Error
+    clip: {fileID: 8300000, guid: 7d4ddb077ec028148ad652ec6b6a165c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: fe69005033bfb53448b824b9b316389f, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Heal
+    clip: {fileID: 8300000, guid: 1206d30f7074827499a23d65b0d57eb5, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Shot1
+    clip: {fileID: 8300000, guid: abced4e5e7e88e8459588ac98880c879, type: 3}
+    volume: 1
+    volumeVariance: 0.165
+    pitch: 1
+    pitchVariance: 0.23
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Shot2
+    clip: {fileID: 8300000, guid: d3af7c697c89bb3469a60b9a133ff2e1, type: 3}
+    volume: 1
+    volumeVariance: 0.05
+    pitch: 1
+    pitchVariance: 0.22
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Boom
+    clip: {fileID: 8300000, guid: 64394513de1b1644f8a96dcc6a92b142, type: 3}
+    volume: 1
+    volumeVariance: 0.15
+    pitch: 1
+    pitchVariance: 0.115
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+--- !u!4 &1524669185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524669183}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524874143
 GameObject:
   m_ObjectHideFlags: 0
@@ -12222,6 +12418,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: SetScene
         m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1267546826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

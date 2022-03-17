@@ -169,9 +169,9 @@ public class Sniper : Tower
         foreach (float turnValue in shotAngles)
         {
             GameObject newBullet = Instantiate(bulletPrefab, shotOrigin.position, shotOrigin.transform.rotation);
-            newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward*shotVelocity, ForceMode.VelocityChange);
+            newBullet.GetComponent<Rigidbody>().AddForce(Quaternion.Euler(0, turnValue, 0) * shotOrigin.forward*shotVelocity, ForceMode.VelocityChange);
             Destroy(newBullet, currentRange / shotVelocity);
-            manager.manager.audioManager.Play(Stat(upgradeType.DAMAGE) > 3 ? boostedAttackSFXName:attackSFXName);
+            manager.manager.audioManager.Play(Stat(upgradeType.DAMAGE) < (manager.sniperDamage.Length - 1) ? attackSFXName : boostedAttackSFXName);
             hits = Physics.RaycastAll(shotOrigin.position, Quaternion.Euler(0, turnValue, 0) * shotOrigin.forward, currentRange, enemyLayer);
             foreach (RaycastHit h in hits) {
                 if (h.collider.gameObject.TryGetComponent(out currentEnemyHit)) {

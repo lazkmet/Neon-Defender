@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class DifficultyToken : MonoBehaviour
 {
+    private AudioManager manager;
     private int dif = 0;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        manager = FindObjectOfType<AudioManager>();
+    }
+    public void Click() {
+        manager.Play("Click");
     }
     public void Set(int newDif) {
         dif = newDif;

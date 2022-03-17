@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
+            s.source.playOnAwake = false;
             s.source.clip = s.clip;
             s.source.loop = s.loop;
 
@@ -46,6 +47,7 @@ public class AudioManager : MonoBehaviour
         s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
         s.source.Play();
+        Debug.Log("Played " + s.name);
     }
 
     public void Stop(string sound)

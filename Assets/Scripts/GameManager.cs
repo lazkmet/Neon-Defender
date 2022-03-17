@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         spawners = FindObjectsOfType<EnemySpawner>();
         audioManager = FindObjectOfType<AudioManager>();
         DifficultyToken difficulty = FindObjectOfType<DifficultyToken>();
-        difficultyValue = (difficulty == null) ? 0 : difficulty.Get();
+        difficultyValue = (difficulty == null) ? difficultyValue : difficulty.Get();
         difficulty = null;
     }
     public void Update()
